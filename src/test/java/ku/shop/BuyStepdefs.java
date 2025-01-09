@@ -23,16 +23,15 @@ public class BuyStepdefs {
     }
 
     @When("I buy {string} with quantity {int}")
-    public void i_buy_with_quantity(String name, int quantity) throws NotEnoughProductException{
+    public void i_buy_with_quantity(String name, int quantity){
         Product prod = catalog.getProduct(name);
         order.addItem(prod, quantity);
     }
 
-    @When("I overbuy {string} with quantity {int}")
-    public void i_overbuy_with_quantity(String name, int quantity) {
-        assertThrows(NotEnoughProductException.class, () -> {
-            ProductCatalog.checkStock(name, quantity);
-        });
+    @Then("a product {string} left {int}")
+    public void a_product_left(String name, int stock) {
+        Product prod = catalog.getProduct(name);
+        assertEquals(stock, prod.getStock());
     }
 
     @Then("total should be {float}")

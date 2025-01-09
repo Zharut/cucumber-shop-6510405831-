@@ -12,7 +12,12 @@ public class Product {
     }
 
     public void cutStock(int quantity) {
+        if (quantity > stock) {
+            throw new IllegalArgumentException("Not enough stock");
+        }
+        else{
         stock -= quantity;
+        }
     }
 
     public String getName() {
